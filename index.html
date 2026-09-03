@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pump Warranty Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; background-color: #f9f9f9; }
+        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2 { margin-top: 0; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input, select, button { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { background-color: #0275d8; color: white; border: none; cursor: pointer; font-size: 16px; margin-top: 10px; font-weight: bold; }
+        button:hover { background-color: #025aa5; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Warranty Registration</h2>
+        <form id="warrantyForm">
+            <div class="form-group">
+                <label for="serialNumber">Serial Number</label>
+                <input type="text" id="serialNumber" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="farmerName">Full Name</label>
+                <input type="text" id="farmerName" required placeholder="Enter full name">
+            </div>
+            <div class="form-group">
+                <label for="farmerPhone">Phone Number</label>
+                <input type="tel" id="farmerPhone" required placeholder="e.g. 0712345678">
+            </div>
+            <div class="form-group">
+                <label for="county">County</label>
+                <input type="text" id="county" placeholder="e.g. Nairobi">
+            </div>
+            <div class="form-group">
+                <label for="purchaseDate">Purchase Date</label>
+                <input type="date" id="purchaseDate" required>
+            </div>
+            <button type="submit">Register Warranty</button>
+        </form>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const sn = urlParams.get('sn') || 'SN-TEST-10001';
+        document.getElementById('serialNumber').value = sn;
+
+        document.getElementById('warrantyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting...';
+
+            const payload = {
+                serialNumber: document.getElementById('serialNumber').value,
+                farmerName: document.getElementById('farmerName').value,
+                farmerPhone: document.getElementById('farmerPhone').value,
+                county: document.getElementById('county').value,
+                purchaseDate: document.getElementById('purchaseDate').value
+            };
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('Success! ' + data.message);
+                    document.getElementById('warrantyForm').reset();
+                    document.getElementById('serialNumber').value = sn;
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (err) {
+                alert('Submission failed. Please check your connection.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Register Warranty';
+            }
+        });
+    </script>
+</body>
+</html>
