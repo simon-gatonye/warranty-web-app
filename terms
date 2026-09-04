@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyMaker Solar Pump Guarantee - Terms and Conditions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 180px;
+            height: auto;
+        }
+        h1 {
+            color: #1a4a72;
+            font-size: 20px;
+            margin-top: 15px;
+        }
+        h2 {
+            color: #1a4a72;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .exclusions {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+        .exclusions li::before {
+            content: "➤ ";
+            color: #d9534f;
+        }
+        .footer-nav {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1a4a72;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="Logo.png" alt="KickStart Logo">
+            <h1>MoneyMaker Solar Pump Guarantee Form</h1>
+        </div>
+
+        <h2>Terms and Conditions:</h2>
+        <ul>
+            <li>Your new solar pump has a 1-year guarantee.</li>
+            <li>This guarantee covers any problems caused when the pump was being made.</li>
+            <li>The dealer must fill in this form on the day the pump is bought.</li>
+            <li>The guarantee begins on the date of purchase and is valid for one year.</li>
+            <li>If your pump stops working or develops a problem, do not open or attempt to disassemble it.</li>
+            <li><strong>Contact KickStart first for assistance:</strong> Phone: +254 725790050</li>
+            <li>If the pump still does not work, inform KickStart and return the complete pump set (pump, cable, panel, and hosepipe) to the dealer where you purchased it.</li>
+        </ul>
+
+        <p><strong>The guarantee does not cover the pump if:</strong></p>
+        <ul class="exclusions">
+            <li>You break the solar panel.</li>
+            <li>You cut or damage the pump cable.</li>
+            <li>You open or take apart the pump.</li>
+            <li>You try to repair the pump yourself.</li>
+        </ul>
+
+        <p>By filling in this form, you agree that someone working for KickStart may contact you.</p>
+
+        <div class="footer-nav">
+            <a href="index.html" class="btn">Return to Registration Form</a>
+        </div>
+    </div>
+</body>
+</html>
