@@ -1,92 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pump Warranty Registration</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; background-color: #f9f9f9; }
-        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h2 { margin-top: 0; color: #333; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input, select, button { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-        button { background-color: #0275d8; color: white; border: none; cursor: pointer; font-size: 16px; margin-top: 10px; font-weight: bold; }
-        button:hover { background-color: #025aa5; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoneyMaker Solar Pump Guarantee Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; }
+    .container { max-width: 550px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo img { max-width: 180px; height: auto; }
+    h2 { text-align: center; color: #1a365d; margin-bottom: 25px; font-size: 22px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 6px; font-weight: bold; color: #333; font-size: 14px; }
+    input[type="text"], input[type="tel"], input[type="date"], select {
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;
+    }
+    input[readonly] { background-color: #e9ecef; color: #495057; cursor: not-allowed; }
+    .checkbox-group { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 15px; }
+    .checkbox-group a { color: #0066cc; text-decoration: underline; }
+    button { width: 100%; background-color: #008800; color: #fff; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+    button:hover { background-color: #006600; }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Warranty Registration</h2>
-        <form id="warrantyForm">
-            <div class="form-group">
-                <label for="serialNumber">Serial Number</label>
-                <input type="text" id="serialNumber" required readonly>
-            </div>
-            <div class="form-group">
-                <label for="farmerName">Full Name</label>
-                <input type="text" id="farmerName" required placeholder="Enter full name">
-            </div>
-            <div class="form-group">
-                <label for="farmerPhone">Phone Number</label>
-                <input type="tel" id="farmerPhone" required placeholder="e.g. 0712345678">
-            </div>
-            <div class="form-group">
-                <label for="county">County</label>
-                <input type="text" id="county" placeholder="e.g. Nairobi">
-            </div>
-            <div class="form-group">
-                <label for="purchaseDate">Purchase Date</label>
-                <input type="date" id="purchaseDate" required>
-            </div>
-            <button type="submit">Register Warranty</button>
-        </form>
+
+<div class="container">
+  <div class="logo">
+    <img src="assets/kickstart-logo.png" alt="KickStart Logo">
+  </div>
+  <h2>MoneyMaker Solar Pump Guarantee Form</h2>
+
+  <!-- Replace action attribute with your Power Automate HTTP POST URL -->
+  <form id="guaranteeForm" action="YOUR_POWER_AUTOMATE_HTTP_POST_URL" method="POST">
+    
+    <div class="form-group">
+      <label for="serial_number">Pump Serial Number</label>
+      <input type="text" id="serial_number" name="serial_number" readonly required placeholder="Auto-filled from QR code">
     </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const sn = urlParams.get('sn') || 'SN-TEST-10001';
-        document.getElementById('serialNumber').value = sn;
+    <div class="form-group">
+      <label for="customer_name">Customer Name</label>
+      <input type="text" id="customer_name" name="customer_name" required placeholder="Enter full name">
+    </div>
 
-        document.getElementById('warrantyForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = e.target.querySelector('button');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Submitting...';
+    <div class="form-group">
+      <label for="phone_number">Phone Number (10 Digits)</label>
+      <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{10}" maxlength="10" minlength="10" required placeholder="0712345678" inputmode="numeric">
+    </div>
 
-            const payload = {
-                serialNumber: document.getElementById('serialNumber').value,
-                farmerName: document.getElementById('farmerName').value,
-                farmerPhone: document.getElementById('farmerPhone').value,
-                county: document.getElementById('county').value,
-                purchaseDate: document.getElementById('purchaseDate').value
-            };
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
 
-            try {
-                const res = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+    <div class="form-group">
+      <label for="county">County</label>
+      <input list="county_list" id="county" name="county" placeholder="Search or select County..." required>
+      <datalist id="county_list"></datalist>
+    </div>
 
-                const data = await res.json();
+    <div class="form-group">
+      <label for="sub_county">Sub-County</label>
+      <select id="sub_county" name="sub_county" required disabled>
+        <option value="" disabled selected>Select County First</option>
+      </select>
+    </div>
 
-                if (res.ok) {
-                    alert('Success! ' + data.message);
-                    document.getElementById('warrantyForm').reset();
-                    document.getElementById('serialNumber').value = sn;
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            } catch (err) {
-                alert('Submission failed. Please check your connection.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Register Warranty';
-            }
-        });
-    </script>
+    <div class="form-group">
+      <label for="issuing_partner_dealer">Issuing Partner / Dealer</label>
+      <input type="text" id="issuing_partner_dealer" name="issuing_partner_dealer" required placeholder="Enter Issuing Partner / Dealer">
+    </div>
+
+    <div class="form-group">
+      <label for="purchase_date">Purchase Date</label>
+      <input type="date" id="purchase_date" name="purchase_date" required>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="terms" name="terms" required>
+      <label for="terms" style="font-weight: normal; margin: 0;">
+        I agree to the <a href="Solar Pump Terms & Conditions.pdf" target="_blank">Terms and Conditions</a>
+      </label>
+    </div>
+
+    <button type="submit">Submit Guarantee</button>
+  </form>
+</div>
+
+<script>
+  const countyData = {
+    "Mombasa": ["Changamwe", "Jomvu", "Kisauni", "Likoni", "Mvita", "Nyali"],
+    "Kwale": ["Kinango", "Lunga Lunga", "Msambweni", "Matuga"],
+    "Kilifi": ["Ganze", "Kaloleni", "Kilifi North", "Kilifi South", "Magarini", "Malindi", "Rabai"],
+    "Tana River": ["Bura", "Galole", "Garsen"],
+    "Lamu": ["Lamu East", "Lamu West"],
+    "Taita-Taveta": ["Mwatate", "Taveta", "Voi", "Wundanyi"],
+    "Garissa": ["Balambala", "Dadaab", "Fafi", "Garissa Township", "Hulugho", "Ijara", "Lagdera"],
+    "Wajir": ["Eldas", "Tarbaj", "Wajir East", "Wajir North", "Wajir South", "Wajir West"],
+    "Mandera": ["Banissa", "Lafey", "Mandera East", "Mandera North", "Mandera South", "Mandera West"],
+    "Marsabit": ["Laisamis", "Moyale", "North Horr", "Saku"],
+    "Isiolo": ["Garbatulla", "Isiolo", "Merti"],
+    "Meru": ["Buuri", "Igembe Central", "Igembe North", "Igembe South", "Imenti Central", "Imenti North", "Imenti South", "Tigania East", "Tigania West"],
+    "Tharaka-Nithi": ["Tharaka North", "Tharaka South", "Chuka", "Igambang'ombe", "Maara", "Chiakariga"],
+    "Embu": ["Manyatta", "Runyenjes", "Mbeere North", "Mbeere South"],
+    "Kitui": ["Kitui West", "Kitui Central", "Kitui Rural", "Kitui South", "Kitui East", "Mwingi North", "Mwingi West", "Mwingi Central"],
+    "Machakos": ["Machakos Town", "Mavoko", "Masinga", "Yatta", "Kangundo", "Matungulu", "Kathiani", "Mwala"],
+    "Makueni": ["Makueni", "Kilungu", "Mukaa", "Kaiti", "Kibwezi West", "Kibwezi East"],
+    "Nyandarua": ["Kinangop", "Kipipiri", "Ol Kalou", "Ol Joro Orok", "Ndaragwa"],
+    "Nyeri": ["Tetu", "Kieni Open", "Kieni West", "Mathira East", "Mathira West", "Nyeri South", "Mukurweini", "Othaya"],
+    "Kirinyaga": ["Kirinyaga Central", "Kirinyaga East", "Kirinyaga West", "Mwea East", "Mwea West"],
+    "Murang'a": ["Kangema", "Mathioya", "Kiharu", "Kigumo", "Maragua", "Kandara", "Gatanga"],
+    "Kiambu": ["Gatundu South", "Gatundu North", "Juja", "Thika Town", "Ruiru", "Githunguri", "Kiambu", "Kiambaa", "Kabete", "Kikuyu", "Lari", "Limuru"],
+    "Turkana": ["Turkana North", "Turkana West", "Turkana Central", "Loima", "Turkana South", "Turkana East"],
+    "West Pokot": ["Kapenguria", "Sigor", "Kacheliba", "Pokot South"],
+    "Samburu": ["Samburu West", "Samburu North", "Samburu East"],
+    "Trans-Nzoia": ["Cherangany", "Endebess", "Kwanza", "Saboti", "Kiminini"],
+    "Uasin Gishu": ["Ainabkoi", "Kapseret", "Kesses", "Moiben", "Soy", "Turbo"],
+    "Elgeyo-Marakwet": ["Keiyo North", "Keiyo South", "Marakwet East", "Marakwet West"],
+    "Nandi": ["Tinderet", "Aldai", "Nandi Hills", "Chesumei", "Emgwen", "Mosop"],
+    "Baringo": ["Baringo Central", "Baringo North", "Baringo South", "Eldama Ravine", "Mogotio", "Tiaty"],
+    "Laikipia": ["Laikipia Central", "Laikipia East", "Laikipia North", "Laikipia West", "Nyahururu"],
+    "Nakuru": ["Nakuru East", "Nakuru West", "Njoro", "Molo", "Gilgil", "Naivasha", "Kabarak", "Subukia", "Rongai", "Kuresoi South", "Kuresoi North"],
+    "Narok": ["Narok North", "Narok South", "Narok East", "Narok West", "Trans Mara East", "Trans Mara West"],
+    "Kajiado": ["Kajiado Central", "Kajiado North", "Kajiado South", "Kajiado East", "Kajiado West"],
+    "Kericho": ["Ainamoi", "Belgut", "Bureti", "Kipkelion East", "Kipkelion West", "Soin/Sigowet"],
+    "Bomet": ["Bomet Central", "Bomet East", "Chepalungu", "Konoin", "Sotik"],
+    "Kakamega": ["Lugari", "Likuyani", "Malava", "Lurambi", "Navakholo", "Mumias West", "Mumias East", "Matungu", "Butere", "Khwisero", "Shinyalu", "Ikolomani"],
+    "Vihiga": ["Vihiga", "Sabatia", "Hamisi", "Luanda", "Emuhaya"],
+    "Bungoma": ["Bungoma Central", "Bungoma East", "Bungoma North", "Bungoma South", "Bungoma West", "Kanduyi", "Sirisia", "Kabuchai", "Kimilili", "Webuye West"],
+    "Busia": ["Teso North", "Teso South", "Nambale", "Matayos", "Butula", "Funyula", "Bunyala"],
+    "Siaya": ["Alego Usonga", "Bondo", "Gem", "Rarieda", "Ugenya", "Ugunja"],
+    "Kisumu": ["Kisumu Central", "Kisumu East", "Kisumu West", "Muhoroni", "Nyakach", "Nyando", "Seme"],
+    "Homa Bay": ["Homa Bay Town", "Kabondo Kasipul", "Kasipul", "Mbita", "Ndhiwa", "Rangwe", "Suba North", "Suba South"],
+    "Migori": ["Awendo", "Kuria East", "Kuria West", "Mabera", "Ntimaru", "Rongo", "Suna East", "Suna West", "Uriri"],
+    "Kisii": ["Kitutu Chache North", "Kitutu Chache South", "Nyaribari Chache", "Nyaribari Masaba", "South Mugirango", "Bomachoge Borabu", "Bomachoge Chache", "Bobasi", "Bonchari"],
+    "Nyamira": ["Borabu", "Manga", "Masaba North", "Nyamira North", "Nyamira South"]
+  };
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sn = urlParams.get('sn') || urlParams.get('serial');
+    if (sn) {
+      document.getElementById('serial_number').value = sn;
+    }
+
+    const countyDatalist = document.getElementById('county_list');
+    Object.keys(countyData).forEach(county => {
+      const option = document.createElement('option');
+      option.value = county;
+      countyDatalist.appendChild(option);
+    });
+  });
+
+  const countyInput = document.getElementById('county');
+  const subCountySelect = document.getElementById('sub_county');
+
+  countyInput.addEventListener('input', function() {
+    const selectedCounty = this.value.trim();
+    subCountySelect.innerHTML = '';
+
+    if (countyData[selectedCounty]) {
+      subCountySelect.disabled = false;
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      defaultOption.textContent = 'Select Sub-County';
+      subCountySelect.appendChild(defaultOption);
+
+      countyData[selectedCounty].forEach(subCounty => {
+        const option = document.createElement('option');
+        option.value = subCounty;
+        option.textContent = subCounty;
+        subCountySelect.appendChild(option);
+      });
+    } else {
+      subCountySelect.disabled = true;
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      defaultOption.textContent = 'Select Valid County First';
+      subCountySelect.appendChild(defaultOption);
+    }
+  });
+</script>
+
 </body>
 </html>
