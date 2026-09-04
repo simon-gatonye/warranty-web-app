@@ -194,13 +194,13 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const payload = {
-        customerName: document.getElementById('customerName').value,
-        phoneNumber: document.getElementById('phoneNumber').value,
+        customerName: document.getElementById('customer_name').value,
+        phoneNumber: document.getElementById('phone_number').value,
         county: document.getElementById('county').value,
-        subCounty: document.getElementById('subCounty').value,
-        purchaseDate: document.getElementById('purchaseDate').value,
-        pumpSerialNumber: document.getElementById('pumpSerialNumber').value,
-        issuingPartner: document.getElementById('issuingPartner').value,
+        subCounty: document.getElementById('sub_county').value,
+        purchaseDate: document.getElementById('purchase_date').value,
+        pumpSerialNumber: document.getElementById('serial_number').value,
+        issuingPartner: document.getElementById('issuing_partner_dealer').value,
         gender: document.getElementById('gender').value
     };
 
