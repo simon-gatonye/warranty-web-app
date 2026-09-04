@@ -189,6 +189,41 @@
     }
   });
 </script>
+<script>
+document.getElementById('warrantyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
+    const payload = {
+        customerName: document.getElementById('customerName').value,
+        phoneNumber: document.getElementById('phoneNumber').value,
+        county: document.getElementById('county').value,
+        subCounty: document.getElementById('subCounty').value,
+        purchaseDate: document.getElementById('purchaseDate').value,
+        pumpSerialNumber: document.getElementById('pumpSerialNumber').value,
+        issuingPartner: document.getElementById('issuingPartner').value,
+        gender: document.getElementById('gender').value
+    };
+
+    try {
+        const response = await fetch('https://default641eb241cb6541f2b602bd2f50d4d6.be.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/19/workflows/5c1a41a6345d4a79aa1f2a648e184d63/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=HnvzHjpY4RP0D9iGqQ3ou_Rg-yqtoAfZZh3MYc-eKk4', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            alert('Warranty registered successfully!');
+            e.target.reset();
+        } else {
+            alert('Failed to register warranty. Please try again.');
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        alert('Network error. Check console for details.');
+    }
+});
+</script>
 </body>
 </html>
