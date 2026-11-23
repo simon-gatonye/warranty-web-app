@@ -214,7 +214,8 @@ document.querySelector('form').addEventListener('submit', async (e) => {
         purchaseDate: document.getElementById('purchase_date').value,
         pumpSerialNumber: document.getElementById('serial_number').value,
         issuingPartner: document.getElementById('issuing_partner_dealer').value,
-        gender: document.getElementById('gender').value
+        gender: document.getElementById('gender').value,
+        age: document.getElementById('age').value
     };
 
     try {
@@ -227,10 +228,10 @@ document.querySelector('form').addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            alert('Warranty registered successfully!');
+            alert('Guarantee registered successfully!');
             e.target.reset();
         } else {
-            alert('Failed to register warranty. Please try again.');
+            alert('Failed to register guarantee. Please try again.');
         }
     } catch (error) {
         console.error('Submission error:', error);
