@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoneyMaker SunStart Solar Pump Guarantee</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; }
+    .container { max-width: 550px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo img { max-width: 180px; height: auto; }
+    h2 { text-align: center; color: #1a365d; margin-bottom: 25px; font-size: 22px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 6px; font-weight: bold; color: #333; font-size: 14px; }
+    input[type="text"], input[type="tel"], input[type="date"], select {
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;
+    }
+    input[readonly] { background-color: #e9ecef; color: #495057; cursor: not-allowed; }
+    .checkbox-group { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 15px; }
+    .checkbox-group a { color: #0066cc; text-decoration: underline; }
+    button { width: 100%; background-color: #008800; color: #fff; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+    button:hover { background-color: #006600; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">
+    <img src="Logo.png" alt="KickStart Logo">
+  </div>
+  <h2>MoneyMaker SunStart Solar Pump Guarantee</h2>
+
+  <!-- Replace action attribute with your Power Automate HTTP POST URL -->
+  <form id="guaranteeForm" action="YOUR_POWER_AUTOMATE_HTTP_POST_URL" method="POST">
+    
+    <div class="form-group">
+      <label for="serial_number">Pump Serial Number</label>
+      <input type="text" id="serial_number" name="serial_number" readonly required placeholder="Auto-filled from QR code">
+    </div>
+
+    <div class="form-group">
+      <label for="customer_name">Customer Name</label>
+      <input type="text" id="customer_name" name="customer_name" required placeholder="Enter full name">
+    </div>
+
+    <div class="form-group">
+      <label for="phone_number">Phone Number (10 Digits)</label>
+      <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{10}" maxlength="10" minlength="10" required placeholder="0712345678" inputmode="numeric">
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age</label>
+      <select id="age" name="age" required>
+        <option value="" disabled selected>Select Age Group</option>
+        <option value="Under 20">Under 20</option>
+        <option value="21-30">21-30</option>
+        <option value="31-40">31-40</option>
+        <option value="41-50">41-50</option>
+        <option value="51-60">51-60</option>
+        <option value="61 and above">61 and above</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="county">County</label>
+      <input list="county_list" id="county" name="county" placeholder="Search or select County..." required>
+      <datalist id="county_list"></datalist>
+    </div>
+
+    <div class="form-group">
+      <label for="sub_county">Sub-County</label>
+      <select id="sub_county" name="sub_county" required disabled>
+        <option value="" disabled selected>Select County First</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="issuing_partner_dealer">Issuing Partner / Dealer</label>
+      <input type="text" id="issuing_partner_dealer" name="issuing_partner_dealer" required placeholder="Enter Issuing Partner / Dealer">
+    </div>
+
+    <div class="form-group">
+      <label for="purchase_date">Purchase Date</label>
+      <input type="date" id="purchase_date" name="purchase_date" required>
+    </div>
+
+<div class="checkbox-group">
+  <input type="checkbox" id="terms" name="terms" required>
+  <label for="terms" style="font-weight: normal; margin: 0;">
+    I agree to the <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+  </label>
+</div>
+
+    <button type="submit">Submit Guarantee</button>
+  </form>
+</div>
+
+<script>
+  const countyData = {
+    "Mombasa": ["Changamwe", "Jomvu", "Kisauni", "Likoni", "Mvita", "Nyali"],
+    "Kwale": ["Kinango", "Lunga Lunga", "Msambweni", "Matuga"],
+    "Kilifi": ["Ganze", "Kaloleni", "Kilifi North", "Kilifi South", "Magarini", "Malindi", "Rabai"],
+    "Tana River": ["Bura", "Galole", "Garsen"],
+    "Lamu": ["Lamu East", "Lamu West"],
+    "Taita-Taveta": ["Mwatate", "Taveta", "Voi", "Wundanyi"],
+    "Garissa": ["Balambala", "Dadaab", "Fafi", "Garissa Township", "Hulugho", "Ijara", "Lagdera"],
+    "Wajir": ["Eldas", "Tarbaj", "Wajir East", "Wajir North", "Wajir South", "Wajir West"],
+    "Mandera": ["Banissa", "Lafey", "Mandera East", "Mandera North", "Mandera South", "Mandera West"],
+    "Marsabit": ["Laisamis", "Moyale", "North Horr", "Saku"],
+    "Isiolo": ["Garbatulla", "Isiolo", "Merti"],
+    "Meru": ["Buuri", "Igembe Central", "Igembe North", "Igembe South", "Imenti Central", "Imenti North", "Imenti South", "Tigania East", "Tigania West"],
+    "Tharaka-Nithi": ["Tharaka North", "Tharaka South", "Chuka", "Igambang'ombe", "Maara", "Chiakariga"],
+    "Embu": ["Manyatta", "Runyenjes", "Mbeere North", "Mbeere South"],
+    "Kitui": ["Kitui West", "Kitui Central", "Kitui Rural", "Kitui South", "Kitui East", "Mwingi North", "Mwingi West", "Mwingi Central"],
+    "Machakos": ["Machakos Town", "Mavoko", "Masinga", "Yatta", "Kangundo", "Matungulu", "Kathiani", "Mwala"],
+    "Makueni": ["Makueni", "Kilungu", "Mukaa", "Kaiti", "Kibwezi West", "Kibwezi East"],
+    "Nyandarua": ["Kinangop", "Kipipiri", "Ol Kalou", "Ol Joro Orok", "Ndaragwa"],
+    "Nyeri": ["Tetu", "Kieni Open", "Kieni West", "Mathira East", "Mathira West", "Nyeri South", "Mukurweini", "Othaya"],
+    "Kirinyaga": ["Kirinyaga Central", "Kirinyaga East", "Kirinyaga West", "Mwea East", "Mwea West"],
+    "Murang'a": ["Kangema", "Mathioya", "Kiharu", "Kigumo", "Maragua", "Kandara", "Gatanga"],
+    "Kiambu": ["Gatundu South", "Gatundu North", "Juja", "Thika Town", "Ruiru", "Githunguri", "Kiambu", "Kiambaa", "Kabete", "Kikuyu", "Lari", "Limuru"],
+    "Turkana": ["Turkana North", "Turkana West", "Turkana Central", "Loima", "Turkana South", "Turkana East"],
+    "West Pokot": ["Kapenguria", "Sigor", "Kacheliba", "Pokot South"],
+    "Samburu": ["Samburu West", "Samburu North", "Samburu East"],
+    "Trans-Nzoia": ["Cherangany", "Endebess", "Kwanza", "Saboti", "Kiminini"],
+    "Uasin Gishu": ["Ainabkoi", "Kapseret", "Kesses", "Moiben", "Soy", "Turbo"],
+    "Elgeyo-Marakwet": ["Keiyo North", "Keiyo South", "Marakwet East", "Marakwet West"],
+    "Nandi": ["Tinderet", "Aldai", "Nandi Hills", "Chesumei", "Emgwen", "Mosop"],
+    "Baringo": ["Baringo Central", "Baringo North", "Baringo South", "Eldama Ravine", "Mogotio", "Tiaty"],
+    "Laikipia": ["Laikipia Central", "Laikipia East", "Laikipia North", "Laikipia West", "Nyahururu"],
+    "Nakuru": ["Nakuru East", "Nakuru West", "Njoro", "Molo", "Gilgil", "Naivasha", "Kabarak", "Subukia", "Rongai", "Kuresoi South", "Kuresoi North"],
+    "Narok": ["Narok North", "Narok South", "Narok East", "Narok West", "Trans Mara East", "Trans Mara West"],
+    "Kajiado": ["Kajiado Central", "Kajiado North", "Kajiado South", "Kajiado East", "Kajiado West"],
+    "Kericho": ["Ainamoi", "Belgut", "Bureti", "Kipkelion East", "Kipkelion West", "Soin/Sigowet"],
+    "Bomet": ["Bomet Central", "Bomet East", "Chepalungu", "Konoin", "Sotik"],
+    "Kakamega": ["Lugari", "Likuyani", "Malava", "Lurambi", "Navakholo", "Mumias West", "Mumias East", "Matungu", "Butere", "Khwisero", "Shinyalu", "Ikolomani"],
+    "Vihiga": ["Vihiga", "Sabatia", "Hamisi", "Luanda", "Emuhaya"],
+    "Bungoma": ["Bungoma Central", "Bungoma East", "Bungoma North", "Bungoma South", "Bungoma West", "Kanduyi", "Sirisia", "Kabuchai", "Kimilili", "Webuye West"],
+    "Busia": ["Teso North", "Teso South", "Nambale", "Matayos", "Butula", "Funyula", "Bunyala"],
+    "Siaya": ["Alego Usonga", "Bondo", "Gem", "Rarieda", "Ugenya", "Ugunja"],
+    "Kisumu": ["Kisumu Central", "Kisumu East", "Kisumu West", "Muhoroni", "Nyakach", "Nyando", "Seme"],
+    "Homa Bay": ["Homa Bay Town", "Kabondo Kasipul", "Kasipul", "Mbita", "Ndhiwa", "Rangwe", "Suba North", "Suba South"],
+    "Migori": ["Awendo", "Kuria East", "Kuria West", "Mabera", "Ntimaru", "Rongo", "Suna East", "Suna West", "Uriri"],
+    "Kisii": ["Kitutu Chache North", "Kitutu Chache South", "Nyaribari Chache", "Nyaribari Masaba", "South Mugirango", "Bomachoge Borabu", "Bomachoge Chache", "Bobasi", "Bonchari"],
+    "Nyamira": ["Borabu", "Manga", "Masaba North", "Nyamira North", "Nyamira South"]
+  };
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sn = urlParams.get('sn') || urlParams.get('serial');
+    if (sn) {
+      document.getElementById('serial_number').value = sn;
+    }
+
+    const countyDatalist = document.getElementById('county_list');
+    Object.keys(countyData).forEach(county => {
+      const option = document.createElement('option');
+      option.value = county;
+      countyDatalist.appendChild(option);
+    });
+  });
+
+  const countyInput = document.getElementById('county');
+  const subCountySelect = document.getElementById('sub_county');
+
+  countyInput.addEventListener('input', function() {
+    const selectedCounty = this.value.trim();
+    subCountySelect.innerHTML = '';
+
+    if (countyData[selectedCounty]) {
+      subCountySelect.disabled = false;
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      defaultOption.textContent = 'Select Sub-County';
+      subCountySelect.appendChild(defaultOption);
+
+      countyData[selectedCounty].forEach(subCounty => {
+        const option = document.createElement('option');
+        option.value = subCounty;
+        option.textContent = subCounty;
+        subCountySelect.appendChild(option);
+      });
+    } else {
+      subCountySelect.disabled = true;
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      defaultOption.textContent = 'Select Valid County First';
+      subCountySelect.appendChild(defaultOption);
+    }
+  });
+</script>
+<script>
+document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const payload = {
+        customerName: document.getElementById('customer_name').value,
+        phoneNumber: document.getElementById('phone_number').value,
+        county: document.getElementById('county').value,
+        subCounty: document.getElementById('sub_county').value,
+        purchaseDate: document.getElementById('purchase_date').value,
+        pumpSerialNumber: document.getElementById('serial_number').value,
+        issuingPartner: document.getElementById('issuing_partner_dealer').value,
+        gender: document.getElementById('gender').value,
+        age: document.getElementById('age').value
+    };
+
+    try {
+        const response = await fetch('https://default641eb241cb6541f2b602bd2f50d4d6.be.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/19/workflows/5c1a41a6345d4a79aa1f2a648e184d63/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=HnvzHjpY4RP0D9iGqQ3ou_Rg-yqtoAfZZh3MYc-eKk4', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            alert('Guarantee registered successfully!');
+            e.target.reset();
+        } else {
+            alert('Failed to register guarantee. Please try again.');
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        alert('Network error. Check console for details.');
+    }
+});
+</script>
+</body>
+</html>
